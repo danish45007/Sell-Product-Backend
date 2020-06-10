@@ -1,7 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 require('dotenv').config();
 
+// init app
 const app = express();
 
 
@@ -16,6 +20,11 @@ mongoose.connect(process.env.DATABASE,{
 }).catch(err => {
     console.log("DB CONNECTED Failed")
 });
+
+// Middlewares injection
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(cors());
 
 
 // PORT Define
