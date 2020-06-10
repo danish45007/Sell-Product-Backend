@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose')
-const bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 require('dotenv').config();
@@ -26,7 +26,8 @@ mongoose.connect(process.env.DATABASE,{
 });
 
 // Middlewares injection
-app.use(bodyParser.json());
+// parse application/json
+app.use(bodyParser.json())
 app.use(cookieParser());
 app.use(cors());
 

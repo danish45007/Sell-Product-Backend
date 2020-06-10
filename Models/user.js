@@ -11,7 +11,7 @@ const UserSchema = new Schema({
         maxlength: 32,
         trim: true
     },
-    lastName: { 
+    lastname: { 
         type: String,
         required: false,
         maxlength: 32,
@@ -59,7 +59,7 @@ UserSchema.virtual("password")
 
 
 
-UserSchema.method = {
+UserSchema.methods = {
 
     authenticate: function () {
 
@@ -70,7 +70,7 @@ UserSchema.method = {
 
     securePassword: function (plainpassword) {
         if (!plainpassword) {
-            return "";
+            return "Please Enter Your Password";
         } else {
             
             try {
