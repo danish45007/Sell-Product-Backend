@@ -59,7 +59,6 @@ UserSchema.virtual("password")
 
 
 
-
 UserSchema.method = {
 
     authenticate: function () {
@@ -85,10 +84,10 @@ UserSchema.method = {
                 
             }
     
-        }        
+        };        
 
     }
-}
+};
 
 
 
