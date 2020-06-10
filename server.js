@@ -5,9 +5,13 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 require('dotenv').config();
 
+const authRoutes = require('./Routers/auth');
+
 // init app
 const app = express();
 
+// Routes
+app.use("/api", authRoutes)
 
 
 // database connection
