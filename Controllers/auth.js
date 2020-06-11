@@ -1,6 +1,6 @@
 require('dotenv').config();
 const User = require("../Models/user");
-const {check,validationResult} = require('express-validator');
+const {check,validationResult, cookie} = require('express-validator');
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
 
@@ -66,12 +66,41 @@ exports.signin = (req, res) => {
     }) 
 }
 
+// Protected Routes/middleware
+exports.isSignedIn = expressJwt({
+    secret: process.env.SECRET,
+    UserProperty: "auth"
+});
 
+
+// Coustom middlewares
+exports.isAdmin = (req,res,next) => {
+
+    if (req.profile.role === 0){
+        return res.status(403).json(
+            { error: "You are not Admin, Access Denied" }
+        )
+    }
+    next();
+}
+
+exports.isAuthenticated = (req,res,next) => {
+
+    let checker = req.profile && req.auth && req.profile._id === req.auth._id;
+    if (!checker){
+        return res.status(403).json(
+            { error: "Access Denied" }
+        )
+    }
+    next();
+}
 
 // Signout method
 exports.signout= (req,res) => {
+    // clear cookie => clear token 
+    res.clearCookie("token")
     res.json({
-        message: "User signout"
+        message: "Your Signout"
     });
 
 };
