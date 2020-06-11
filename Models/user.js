@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const uuid = require('uuid');
+const uuidv1 = require('uuid/v1')
 const crypto = require('crypto');
 
 const Schema = mongoose.Schema;

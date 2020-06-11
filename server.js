@@ -1,41 +1,44 @@
+// Import's
+require('dotenv').config();
+const mongoose = require('mongoose');
 const express = require('express');
-const mongoose = require('mongoose')
-var bodyParser = require('body-parser');
+const app = express();
+const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-require('dotenv').config();
-
-const authRoutes = require('./Routers/auth');
-
-// init app
-const app = express();
-
-// Routes
-app.use("/api", authRoutes)
 
 
-// database connection
-mongoose.connect(process.env.DATABASE,{
+// Importing my route's
+const authRoutes = require("./Routers/auth");
+
+
+// DB Connection
+mongoose.connect(process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
 }).then(() => {
-    console.log('DB CONNECTED')
-}).catch(err => {
-    console.log("DB CONNECTED Failed")
-});
+    console.log("DB CONNECTED");
+})
 
-// Middlewares injection
-// parse application/json
-app.use(bodyParser.json())
+// Middlewares
+app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors());    
 
 
-// PORT Define
-const PORT = process.env.PORT || 5000;
 
-// starting the server
-app.listen(PORT, () => {
-    console.log(`App is running at ${PORT}`)
+//Using my Routes
+app.use("/api",authRoutes);
+
+
+
+
+
+// PORT
+const port = process.env.PORT || 8000;
+
+// Starting Server
+app.listen(port,() => {
+    console.log(`app is running at ${port}`);
 });
