@@ -60,54 +60,52 @@ exports.updateUser = (req,res) => {
     )
 
 }
+// // User Order List=> arr
+// exports.userPurchaseList = (req,res) => {
+//     Order.find({user: req.profile._id})
+//     // populate("UpdateModel", "Fields want to update")
+//     .populate("user","_id name")
+//     .exec((err,order) => {
+//         if(err){
+//             return res.status(400).json(
+//                     { error: "No Order Found" }
+//                 )
+//         }
+//         return res.json(order)
+//     })
 
+// }
 
-// User Order List=> arr
-exports.userPurchaseList = (req,res) => {
-    Order.find({user: req.profile._id})
-    // populate("UpdateModel", "Fields want to update")
-    .populate("user","_id name")
-    .exec((err,order) => {
-        if(err){
-            return res.status(400).json(
-                    { error: "No Order Found" }
-                )
-        }
-        return res.json(order)
-    })
+// // Middleware the push Order into Purchase List
+// exports.pushOrderInPurchaseList = (req,res,next) => {
 
-}
-
-// Middleware the push Order into Purchase List
-exports.pushOrderInPurchaseList = (req,res,next) => {
-
-    let purchases = []
-    req.body.order.prodcuts.forEach(product => {
-        purchases.push({
+//     let purchases = []
+//     req.body.order.prodcuts.forEach(product => {
+//         purchases.push({
             
-            _id: product._id,
-            name: product.name,
-            description: product.description,
-            category: product.category,
-            quantity: product.quantity,
-            amount: req.body.order.amount,
-            transaction_id: req.body.oder.transaction_id
-        })
-        // Store in DB
-        User.findByIdAndUpdate(
-            {_id: req.profile._id},
-            {$push: {purchases:purchases}},
-            {new: true},
-            (err, purchases) => {
-                if(err){
-                    res.status(400).json({
-                        error: "Unable to save purchase List"
-                    })
-                };
-                next();
-            }
+//             _id: product._id,
+//             name: product.name,
+//             description: product.description,
+//             category: product.category,
+//             quantity: product.quantity,
+//             amount: req.body.order.amount,
+//             transaction_id: req.body.oder.transaction_id
+//         })
+//         // Store in DB
+//         User.findByIdAndUpdate(
+//             {_id: req.profile._id},
+//             {$push: {purchases:purchases}},
+//             {new: true},
+//             (err, purchases) => {
+//                 if(err){
+//                     res.status(400).json({
+//                         error: "Unable to save purchase List"
+//                     })
+//                 };
+//                 next();
+//             }
 
-        )
+//         )
 
-    })
-}
+//     })
+// }

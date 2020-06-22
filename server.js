@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
-
 // Importing my route's
 const authRoutes = require("./Routers/auth");
 const userRoutes = require("./Routers/user");

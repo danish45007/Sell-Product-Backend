@@ -18,7 +18,7 @@ router.get("/users",getUsers)
 // Put route
 router.put("/user/:userId",isSignedIn,isAuthenticated,updateUser)
 
-// Get user Order-Cart info
-router.get("/order/user/:userId",isSignedIn,isAuthenticated, userPurchaseList)
+// // Get user Order-Cart info
+// router.get("/order/user/:userId",isSignedIn,isAuthenticated, userPurchaseList)
 
 module.exports = router;
